@@ -83,13 +83,9 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="GitHub" target="_blank" href="https://github.com/Kate605690919" title="GitHub"><i class="icon-GitHub"></i></a>
+					<a class="github" target="_blank" href="https://github.com/Kate605690919" title="github"><i class="icon-github"></i></a>
 		        
 					<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/shu-zhen-49" title="zhihu"><i class="icon-zhihu"></i></a>
-		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 		        
 			</div>
 		</nav>
@@ -126,13 +122,9 @@
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="GitHub" target="_blank" href="https://github.com/Kate605690919" title="GitHub"><i class="icon-GitHub"></i></a>
+						<a class="github" target="_blank" href="https://github.com/Kate605690919" title="github"><i class="icon-github"></i></a>
 			        
 						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/shu-zhen-49" title="zhihu"><i class="icon-zhihu"></i></a>
-			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 			        
 				</div>
 			</nav>
@@ -183,16 +175,9 @@
         <blockquote>
 <p>在页面加载时，就需要显示在页面上的数据，可以在后台使用this.assign赋值，在前台通过ejs等模板获取；用户点击按钮，或者触发某些事件和后台进行交互时，就需要用到ajax调用后台接口。本文通过一个例子讲述这两种方法的前后台实现。（方便起见，使用jQuery封装的ajax）’<br>（ps：ajax调用后台接口的情形通常是用户触发事件，给后台传递一些前台的数据，然后后台根据这些数据进行相关操作，再返回前台一些数据。举个表单提交的例子，用户点击提交按钮之后，将填写的表单信息传递个后台，后台对传过来的表单信息进行验证，并存储的数据库中，如果这两个过程都成功完成，返回前端一个true，如果失败，返回false。然后前端通过接收到的true和false给出用户相应的提示。）</p>
 </blockquote>
-<p>一般网站都会有用户的个人中心，用户可以通过填写表单修改个人信息，下面就以此种情形为例。（user模块，personal控制器，index方法为页面显示，update方法为更新个人信息）</p>
-<h2 id="this-assign配合模板传递数据"><a href="#this-assign配合模板传递数据" class="headerlink" title="this.assign配合模板传递数据"></a>this.assign配合模板传递数据</h2><p>首先是前端HTML。一个个人信息的表单。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- /view/user/personal_index.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"inputNickname"</span>&gt;</span>Nickname<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span>  <span class="attr">id</span>=<span class="string">"inputNickname"</span> <span class="attr">name</span>=<span class="string">"inputNickname"</span> <span class="attr">value</span>=<span class="string">"&#123;&#123;userInfo.user_name&#125;&#125;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"inputEmail"</span>&gt;</span>Email<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"Email"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">id</span>=<span class="string">"inputEmail"</span> <span class="attr">name</span>=<span class="string">"inputEmail"</span> <span class="attr">value</span>=<span class="string">"&#123;&#123;userInfo.user_mailbox&#125;&#125;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"inputTell"</span>&gt;</span>Tellphone<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"number"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">id</span>=<span class="string">"inputTell"</span> <span class="attr">name</span>=<span class="string">"inputTell"</span> <span class="attr">value</span>=<span class="string">"&#123;&#123;userInfo.user_tellphone&#125;&#125;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"inputCity"</span>&gt;</span>City<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">id</span>=<span class="string">"inputCity"</span> <span class="attr">name</span>=<span class="string">"inputCity"</span> <span class="attr">value</span>=<span class="string">"&#123;&#123;userInfo.user_city&#125;&#125;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"form-group"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">class</span>=<span class="string">"btn btn-primary"</span>&gt;</span>Update Your Information<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>这里使用的是nunjucks模板，打开这个页面时，表单中应该显示用户已有的信息，所以在/src/user/controller/personal.js的index方法里应该通过this.assign将用户信息赋给前台。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// /src/user/controller/personal.js</span></span><br><span class="line"><span class="keyword">async</span> indexAction()&#123;</span><br><span class="line">    <span class="keyword">let</span> userInfo = <span class="keyword">await</span> <span class="keyword">this</span>.session(<span class="string">'userInfo'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (think.isEmpty(userInfo)) &#123;</span><br><span class="line">        <span class="keyword">this</span>.redirect(<span class="string">'/user/login/index'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">this</span>.assign(<span class="string">'userInfo'</span>,userInfo);</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="keyword">this</span>.display();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<p>因为是用户信息是在用户登录时就获取到然后存在缓存里的，所以这里是直接从缓存里获取，如果没有获取到用户信息需要重新登录，跳转到登录页面。如果用户信息存在就赋值给userInfo变量，然后在前端的value中获取到这个变量的值。有一点需要注意的是，使用模板时，双括号需要写在双引号里面，否则渲染出来获取到的值不在input的value里。’</p>
-<h2 id="Ajax传递数据："><a href="#Ajax传递数据：" class="headerlink" title="Ajax传递数据："></a>Ajax传递数据：</h2><p>当用户修改表单中的值，并点击提交按钮之后，需要将这些数据传送的后台，虽然可以直接在form的action属性里面写上后台的方法路径，method里面指定提交的方式，但是这种提交不便于获取返回的数据，而且会进行页面跳转，刷新等默认行为。所以通过ajax来传送数据，并通过回调获取返回的数据就可以避免以上这些情况发生。</p>
-<p>前端personal_index.html引用的js文件：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// /www/static/js/personal.js</span></span><br><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $(<span class="string">'form'</span>).submit(<span class="function"><span class="params">evt</span>=&gt;</span>&#123;</span><br><span class="line">        evt.preventDefault();</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            url: <span class="string">'/user/personal/update'</span>,</span><br><span class="line">            type: <span class="string">'POST'</span>,</span><br><span class="line">            dataType: <span class="string">'json'</span>,</span><br><span class="line">            data: $(<span class="string">'form'</span>).serialize(),</span><br><span class="line">            success:<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(!res.errno) &#123;</span><br><span class="line">                    alert(<span class="string">'Update Successfully！'</span>);</span><br><span class="line">                    <span class="built_in">window</span>.location.reload();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> alert(res.errmsg);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>form的submit事件就是默认的表单提交事件，比如点击表单内type为submit的button或者input，在输入框中按下回车等。evt代表当前的事件，evt.preventDefault()就是阻止表单默认提交（通过form的action和method默认提交到对应方法）。然后通过ajax方法将表单信息传递给后台。ajax的使用方法如上面所示，url写对应方法的地址，形式就是’/模块名/控制器名/方法名’，type是’POST’或者’GET’,dataType是数据类型，这里是json，data是传递的数据，form可以简单的通过$(‘form’).serialize()来获取到表单的所有数据（序列化返回的结果举例：name=Kate&amp;city=WuHan，与表单默认提交一致，input的name值和value值对应传给后台）。success是成功传给后台并且后台处理成功后的回调函数，res就是后台的返回值，如果成功，那么弹出更新成功的提示框，并且重新加载页面，用户信息也会更新。如果失败，那么弹出失败的提示框。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// /src/user/controller/personal.js</span></span><br><span class="line"><span class="keyword">async</span> updateAction()&#123;</span><br><span class="line">    <span class="keyword">let</span> formInfo = <span class="keyword">this</span>.post();</span><br><span class="line">    <span class="keyword">let</span> userList = <span class="keyword">this</span>.model(<span class="string">'user'</span>);</span><br><span class="line">    <span class="keyword">let</span> list = <span class="keyword">this</span>.model(<span class="string">'list'</span>);</span><br><span class="line">    <span class="keyword">let</span> userInfo = <span class="keyword">await</span> <span class="keyword">this</span>.session(<span class="string">'userInfo'</span>);</span><br><span class="line">    <span class="keyword">let</span> affectedRows = <span class="keyword">await</span> userList.where(&#123;<span class="attr">user_uid</span>: userInfo.user_uid&#125;).update(&#123;<span class="attr">user_name</span>:formInfo.inputNickname,<span class="attr">user_mailbox</span>:formInfo.inputEmail,<span class="attr">user_tellphone</span>:formInfo.inputTell,<span class="attr">user_city</span>:formInfo.inputCity&#125;);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span>(!affectedRows)&#123; <span class="keyword">this</span>.fail(<span class="number">1000</span>,<span class="string">'update failed!'</span>); &#125;</span><br><span class="line">    <span class="comment">//更新缓存</span></span><br><span class="line">    <span class="keyword">let</span> user = <span class="keyword">await</span> userList.where(&#123;<span class="attr">user_loginname</span>: userInfo.user_loginname&#125;).find();</span><br><span class="line">    <span class="keyword">await</span> <span class="keyword">this</span>.session(<span class="string">'userInfo'</span>,user);</span><br><span class="line">    <span class="keyword">this</span>.success();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<p>首先通过this.post()获取表单传过来的数据存到formInfo中（会转化成键值对的形式，就是js中对象的形式），然后更新这个用户数据库中的数据（通过user_uid这个用户唯一标识查找到该用户信息，并更新），再将更新后的信息存入缓存（注：本文是拿用户信息举例，所以要从缓存中读取，并存入缓存，其它情况可能并不需要使用session），如果有错或者没有成功改变，那么通过this.fail返回，前端回调函数获取到的res.errno为1000，’update failed!’可以通过前端的res.errmsg获取到， 完成之后通过this.success()返回（如需返回数据，将数据作为this.success()的参数即可，在前端回调中通过res.data获取到这个数据），前端回调获取到的res.errno为0。所以在前端js文件中ajax的success回调函数里，只需要判断res.errno即可知道后台执行相关操作的成功与否。</p>
-<p>注：this.success和this.fail的用法参照<a href="https://thinkjs.org/zh-cn/doc/2.2/controller.html#toc-c6a和https://thinkjs.org/zh-cn/doc/2.2/controller.html#toc-060" target="_blank" rel="noopener">https://thinkjs.org/zh-cn/doc/2.2/controller.html#toc-c6a和https://thinkjs.org/zh-cn/doc/2.2/controller.html#toc-060</a></p>
-
+        
+          <a class="article-more-a" href="/Blog/2017/12/02/thinkjs学习(前后端交互篇)-this.assign传递数据和ajax调用后台接口/#more">more >></a>
+        
       
 
       
@@ -205,11 +190,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">think.js</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">think.js</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -280,8 +265,9 @@
 <blockquote>
 <p>109:  A valid React element (or null) must be returned. You may have returned undefined, an array or some other invalid object.</p>
 </blockquote>
-<p>render函数里面忘了写return…</p>
-
+        
+          <a class="article-more-a" href="/Blog/2017/12/02/react报错汇总(持续更新中)/#more">more >></a>
+        
       
 
       
@@ -294,11 +280,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
         		</li>
       		
 		</ul>
@@ -431,15 +417,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Testing</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Another Tag</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">React</a>
+                <a href="javascript:void(0)" class="js-tag color4">think.js</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -447,11 +425,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">think.js</a>
+                <a href="javascript:void(0)" class="js-tag color3">交互</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">交互</a>
+                <a href="javascript:void(0)" class="js-tag color1">React</a>
               </li>
             
             <div class="clearfix"></div>
