@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://kate605690919.github.io">
-  <title>React报错汇总(持续更新中...) | Hexo</title>
+  <title>React的componentWillRecieveProps函数 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="31: Objects are not valid as a React child (found: object with keys …).  当时写&amp;lt;h4&amp;gt;{this.props.bigH}&amp;lt;/h4&amp;gt;,bigH不是一个字符串，而是一个对象{header: ..">
-<meta name="keywords" content="JavaScript,React">
+  <meta name="description" content="上一次我们谈了一下componentWillUpdate函数的注意事项，这次我们谈一谈componentWillRecieveProps这个函数。">
+<meta name="keywords" content="react.js,JavaScript,redux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="React报错汇总(持续更新中...)">
-<meta property="og:url" content="http://kate605690919.github.io/2017/12/02/react报错汇总(持续更新中)/index.html">
+<meta property="og:title" content="React的componentWillRecieveProps函数">
+<meta property="og:url" content="http://kate605690919.github.io/2017/12/08/React的componentWillRecieveProps函数/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="31: Objects are not valid as a React child (found: object with keys …).  当时写&amp;lt;h4&amp;gt;{this.props.bigH}&amp;lt;/h4&amp;gt;,bigH不是一个字符串，而是一个对象{header: ..., content: ...}  109:  A valid React element (or null)">
+<meta property="og:description" content="上一次我们谈了一下componentWillUpdate函数的注意事项，这次我们谈一谈componentWillRecieveProps这个函数。">
 <meta property="og:locale" content="Chinese, English">
-<meta property="og:updated_time" content="2017-12-02T06:54:49.026Z">
+<meta property="og:updated_time" content="2017-12-08T13:11:04.678Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="React报错汇总(持续更新中...)">
-<meta name="twitter:description" content="31: Objects are not valid as a React child (found: object with keys …).  当时写&amp;lt;h4&amp;gt;{this.props.bigH}&amp;lt;/h4&amp;gt;,bigH不是一个字符串，而是一个对象{header: ..., content: ...}  109:  A valid React element (or null)">
+<meta name="twitter:title" content="React的componentWillRecieveProps函数">
+<meta name="twitter:description" content="上一次我们谈了一下componentWillUpdate函数的注意事项，这次我们谈一谈componentWillRecieveProps这个函数。">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -151,20 +151,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-react报错汇总(持续更新中)" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-React的componentWillRecieveProps函数" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      React报错汇总(持续更新中...)
+      React的componentWillRecieveProps函数
     </h1>
   
 
         
-        <a href="/2017/12/02/react报错汇总(持续更新中)/" class="archive-article-date">
-  	<time datetime="2017-12-02T06:14:01.917Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-02</time>
+        <a href="/2017/12/08/React的componentWillRecieveProps函数/" class="archive-article-date">
+  	<time datetime="2017-12-08T12:37:01.377Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-08</time>
 </a>
         
       </header>
@@ -172,14 +172,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>31: Objects are not valid as a React child (found: object with keys …).</p>
-</blockquote>
-<p>当时写<code>&lt;h4&gt;{this.props.bigH}&lt;/h4&gt;</code>,bigH不是一个字符串，而是一个对象<code>{header: ..., content: ...}</code></p>
-<blockquote>
-<p>109:  A valid React element (or null) must be returned. You may have returned undefined, an array or some other invalid object.</p>
+<p>上一次我们谈了一下componentWillUpdate函数的注意事项，这次我们谈一谈componentWillRecieveProps这个函数。</p>
 </blockquote>
 <a id="more"></a>
-<p>render函数里面忘了写return…</p>
+<p>作为一个初学者，我在看程墨大大的书时，很自然的忽略了componentWillRecieveProps这个函数，在写水网这个项目时，遇到一个需求，要在一个方法跑完之后在调用另外一个方法，这两个方法获取到的数据分别显示在两个不同的同级组件中，很自然的用了redux。为了不进行大的改动（私下里认为异步的action好麻烦，不知道是不是因为我用了最原始的，懒得封装。。。原来的写法就是在各自组件内部调用后台方法，回调里setState来更改status和data），在第一个回调中dispatch一个action，改变状态树上的某一个值，这个值在第二个组件中的mapStatetoProps里获取到，就可以引发第二个组件的update。</p>
+<p>按照之前的做法，把第二个组件的对应方法放到componentWillUpdate中，但是因为这个方法的回调中会setState来更新组件内容，所以还会进入到componentWillUpdate中，如果不加以控制，就会变成死循环。所以解决思路就参考了月影的只执行一次的函数。第二个组件状态树上关联的值初始状态设置为false，dispatch的action对应的reducer的case语句里，将其设置为true，componentWillUpdate里判断一下这个值（注意是nextProps属性），为true时，才会调用后台方法，然后在第二个组件对应方法的回调中设置为false，保证setState不会再调用一次后台方法。</p>
+<p>但是这样子改动还算有点多，而且思路有些绕，后来就发现了更新过程还有另一个函数componentWillRecieveProps，组件的props改变、父组件的render函数被调用时，这个函数就会被调用，然而setState不会引起这个函数的调用，恰好用在这个场景里面，直接在componentWillRecieveProps中调用后台方法，并在回调中setState即可，不需要做什么判断。</p>
 
       
 
@@ -219,11 +217,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">react.js</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redux</a>
         		</li>
       		
 		</ul>
@@ -279,7 +281,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://kate605690919.github.io/2017/12/02/react报错汇总(持续更新中)/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://kate605690919.github.io/2017/12/08/React的componentWillRecieveProps函数/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -293,15 +295,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/12/02/thinkjs学习(前后端交互篇)-this.assign传递数据和ajax调用后台接口/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          thinkjs学习(前后端交互篇)-this.assign传递数据和ajax调用后台接口
-        
-      </div>
-    </a>
   
+    <a href="/2017/12/08/React的componentWillUpdate获取不到更新的props值（redux）/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用redux时，componentWillUpdate获取不到更新的props值</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -351,7 +349,7 @@
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "http://kate605690919.github.io/2017/12/02/react报错汇总(持续更新中)/",
+  id: "http://kate605690919.github.io/2017/12/08/React的componentWillRecieveProps函数/",
   owner: 'Kate605690919',
   repo: 'Kate605690919.github.io',
   oauth: {

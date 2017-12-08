@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://kate605690919.github.io">
-  <title>React报错汇总(持续更新中...) | Hexo</title>
+  <title>使用redux时，componentWillUpdate获取不到更新的props值 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="31: Objects are not valid as a React child (found: object with keys …).  当时写&amp;lt;h4&amp;gt;{this.props.bigH}&amp;lt;/h4&amp;gt;,bigH不是一个字符串，而是一个对象{header: ..">
-<meta name="keywords" content="JavaScript,React">
+  <meta name="description" content="使用redux更新store中的值，引起对应组件的update，在componentWillUpdate中，使用对应的props值时，发现并没有变化，">
+<meta name="keywords" content="react.js,JavaScript,redux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="React报错汇总(持续更新中...)">
-<meta property="og:url" content="http://kate605690919.github.io/2017/12/02/react报错汇总(持续更新中)/index.html">
+<meta property="og:title" content="使用redux时，componentWillUpdate获取不到更新的props值">
+<meta property="og:url" content="http://kate605690919.github.io/2017/12/08/React的componentWillUpdate获取不到更新的props值（redux）/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="31: Objects are not valid as a React child (found: object with keys …).  当时写&amp;lt;h4&amp;gt;{this.props.bigH}&amp;lt;/h4&amp;gt;,bigH不是一个字符串，而是一个对象{header: ..., content: ...}  109:  A valid React element (or null)">
+<meta property="og:description" content="使用redux更新store中的值，引起对应组件的update，在componentWillUpdate中，使用对应的props值时，发现并没有变化，">
 <meta property="og:locale" content="Chinese, English">
-<meta property="og:updated_time" content="2017-12-02T06:54:49.026Z">
+<meta property="og:updated_time" content="2017-12-08T12:36:57.256Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="React报错汇总(持续更新中...)">
-<meta name="twitter:description" content="31: Objects are not valid as a React child (found: object with keys …).  当时写&amp;lt;h4&amp;gt;{this.props.bigH}&amp;lt;/h4&amp;gt;,bigH不是一个字符串，而是一个对象{header: ..., content: ...}  109:  A valid React element (or null)">
+<meta name="twitter:title" content="使用redux时，componentWillUpdate获取不到更新的props值">
+<meta name="twitter:description" content="使用redux更新store中的值，引起对应组件的update，在componentWillUpdate中，使用对应的props值时，发现并没有变化，">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -151,20 +151,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-react报错汇总(持续更新中)" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-React的componentWillUpdate获取不到更新的props值（redux）" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      React报错汇总(持续更新中...)
+      使用redux时，componentWillUpdate获取不到更新的props值
     </h1>
   
 
         
-        <a href="/2017/12/02/react报错汇总(持续更新中)/" class="archive-article-date">
-  	<time datetime="2017-12-02T06:14:01.917Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-02</time>
+        <a href="/2017/12/08/React的componentWillUpdate获取不到更新的props值（redux）/" class="archive-article-date">
+  	<time datetime="2017-12-08T12:19:50.889Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-08</time>
 </a>
         
       </header>
@@ -172,14 +172,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>31: Objects are not valid as a React child (found: object with keys …).</p>
+<p>  使用redux更新store中的值，引起对应组件的update，在componentWillUpdate中，使用对应的props值时，发现并没有变化，<a id="more"></a> 在mapStateToProps中，打断点，state是已经变化了的，但是componentWillUpdate函数中确实还是之前的值，在render中打断点，又是已经变化了的，百度之后，发现在render时，才会把更新后的store值，赋给this.props；componentWillUpdate中this.props的值还是更新前的，如果要获取更新后的，componentWillUpdate、componentDidUpdate和shouldComponentUpdate一样，具有两个参数，nextProps，nextState，下一个要获取的值就在这里。</p>
 </blockquote>
-<p>当时写<code>&lt;h4&gt;{this.props.bigH}&lt;/h4&gt;</code>,bigH不是一个字符串，而是一个对象<code>{header: ..., content: ...}</code></p>
-<blockquote>
-<p>109:  A valid React element (or null) must be returned. You may have returned undefined, an array or some other invalid object.</p>
-</blockquote>
-<a id="more"></a>
-<p>render函数里面忘了写return…</p>
 
       
 
@@ -219,11 +213,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">react.js</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redux</a>
         		</li>
       		
 		</ul>
@@ -279,7 +277,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://kate605690919.github.io/2017/12/02/react报错汇总(持续更新中)/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://kate605690919.github.io/2017/12/08/React的componentWillUpdate获取不到更新的props值（redux）/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -293,15 +291,20 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/12/02/thinkjs学习(前后端交互篇)-this.assign传递数据和ajax调用后台接口/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/12/08/React的componentWillRecieveProps函数/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          thinkjs学习(前后端交互篇)-this.assign传递数据和ajax调用后台接口
+          React的componentWillRecieveProps函数
         
       </div>
     </a>
   
+  
+    <a href="/2017/12/02/Hexo搭建你的github博客页(Yilia模板)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hexo+Yilia搭建github Pages个人博客</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -351,7 +354,7 @@
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "http://kate605690919.github.io/2017/12/02/react报错汇总(持续更新中)/",
+  id: "http://kate605690919.github.io/2017/12/08/React的componentWillUpdate获取不到更新的props值（redux）/",
   owner: 'Kate605690919',
   repo: 'Kate605690919.github.io',
   oauth: {
