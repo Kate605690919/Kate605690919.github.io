@@ -173,7 +173,7 @@
       
         <p>刚学react，用react做了一个表单，生成后却发现，input输入不了内容，经百度后，发现react生成的表单如果要重新渲染其中的value应该改变state才会重新渲染，所以要给input绑定onChange事件，具体实现如下所示：</p>
 <a id="more"></a>
-<p>FormItem.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FormItem</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">        <span class="keyword">this</span>.onInputChange = <span class="keyword">this</span>.onInputChange.bind(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">this</span>.state = &#123; <span class="attr">value</span>: <span class="keyword">this</span>.props.itemInfo.input.value &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    onInputChange(e) &#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123; <span class="attr">value</span>: e.target.value &#125; );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">let</span> &#123;  label, id, input &#125; = <span class="keyword">this</span>.props.itemInfo,</span><br><span class="line">            formId = <span class="keyword">this</span>.props.formId || <span class="literal">null</span>,</span><br><span class="line">            help = input.help ? <span class="xml"><span class="tag">&lt;<span class="name">p</span> <span class="attr">className</span>=<span class="string">"addAeraHelp"</span>&gt;</span>&#123;input.help&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span> : <span class="literal">null</span>;</span><br><span class="line">        input.type = input.type || <span class="string">'text'</span>;</span><br><span class="line">        input.placeholder = input.placeholder || <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div className=<span class="string">"form-group"</span> id=&#123;formId&#125;&gt;</span><br><span class="line">                &lt;label <span class="keyword">for</span>=&#123;formId&#125; className=<span class="string">"col-sm-2 control-label"</span>&gt;&#123;label&#125;&lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">                &lt;div className="col-sm-10"&gt;</span></span><br><span class="line"><span class="regexp">                    &lt;input type=&#123;input.type&#125; className="form-control" id=&#123;formId + id&#125; name=&#123;input.name || null&#125; placeholder=&#123;input.placeholder&#125; value=&#123;this.state.value&#125; readOnly=&#123;input.readOnly&#125; onChange=&#123;this.onInputChange&#125; required /</span>&gt;</span><br><span class="line">                &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">                &#123;help&#125;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>FormItem.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FormItem</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">        <span class="keyword">this</span>.onInputChange = <span class="keyword">this</span>.onInputChange.bind(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">this</span>.state = &#123; <span class="attr">value</span>: <span class="keyword">this</span>.props.itemInfo.input.value &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    onInputChange(e) &#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123; <span class="attr">value</span>: e.target.value &#125; );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">let</span> &#123;  label, id, input &#125; = <span class="keyword">this</span>.props.itemInfo,</span><br><span class="line">            formId = <span class="keyword">this</span>.props.formId || <span class="literal">null</span>,</span><br><span class="line">            help = input.help ? &lt;p className="addAeraHelp"&gt;&#123;input.help&#125;&lt;/p&gt; : <span class="literal">null</span>;</span><br><span class="line">        input.type = input.type || <span class="string">'text'</span>;</span><br><span class="line">        input.placeholder = input.placeholder || <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div className=<span class="string">"form-group"</span> id=&#123;formId&#125;&gt;</span><br><span class="line">                &lt;label <span class="keyword">for</span>=&#123;formId&#125; className=<span class="string">"col-sm-2 control-label"</span>&gt;&#123;label&#125;&lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">                &lt;div className="col-sm-10"&gt;</span></span><br><span class="line"><span class="regexp">                    &lt;input type=&#123;input.type&#125; className="form-control" id=&#123;formId + id&#125; name=&#123;input.name || null&#125; placeholder=&#123;input.placeholder&#125; value=&#123;this.state.value&#125; readOnly=&#123;input.readOnly&#125; onChange=&#123;this.onInputChange&#125; required /</span>&gt;</span><br><span class="line">                &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">                &#123;help&#125;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
 
@@ -453,6 +453,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Github Pages</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">node.js</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">jsLint</a>
               </li>
              
@@ -477,26 +493,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Github Pages</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">node.js</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">React</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">react</a>
               </li>
              
@@ -505,7 +501,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日记</a>
+                <a href="javascript:void(0)" class="js-tag color3">文件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">React</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -517,19 +517,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">迦南木棉</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">文件</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">redux-thunk</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">异步</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">日记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">迦南木棉</a>
               </li>
             
             <div class="clearfix"></div>
