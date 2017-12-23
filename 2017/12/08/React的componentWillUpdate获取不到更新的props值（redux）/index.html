@@ -6,22 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://kate605690919.github.io">
-  <title>使用redux时，componentWillUpdate获取不到更新的props值 | Hexo</title>
+  <title>使用redux时，componentWillUpdate获取不到更新的props值 | KateCateCake&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="使用redux更新store中的值，引起对应组件的update，在componentWillUpdate中，使用对应的props值时，发现并没有变化，">
 <meta name="keywords" content="react.js,JavaScript,redux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用redux时，componentWillUpdate获取不到更新的props值">
 <meta property="og:url" content="http://kate605690919.github.io/2017/12/08/React的componentWillUpdate获取不到更新的props值（redux）/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="KateCateCake&#39;s Blog">
 <meta property="og:description" content="使用redux更新store中的值，引起对应组件的update，在componentWillUpdate中，使用对应的props值时，发现并没有变化，">
 <meta property="og:locale" content="Chinese, English">
-<meta property="og:updated_time" content="2017-12-08T12:36:57.256Z">
+<meta property="og:updated_time" content="2017-12-23T11:51:21.991Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用redux时，componentWillUpdate获取不到更新的props值">
 <meta name="twitter:description" content="使用redux更新store中的值，引起对应组件的update，在componentWillUpdate中，使用对应的props值时，发现并没有变化，">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="KateCateCake&#39;s Blog" type="application/atom+xml">
   
   
     <link rel="icon" href="https://avatars0.githubusercontent.com/u/23615318?s=400&u=2bf74675f2c1de255a4b513a6aa596f20ce6fd9d&v=4">
@@ -171,9 +171,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>  使用redux更新store中的值，引起对应组件的update，在componentWillUpdate中，使用对应的props值时，发现并没有变化，<a id="more"></a> 在mapStateToProps中，打断点，state是已经变化了的，但是componentWillUpdate函数中确实还是之前的值，在render中打断点，又是已经变化了的，百度之后，发现在render时，才会把更新后的store值，赋给this.props；componentWillUpdate中this.props的值还是更新前的，如果要获取更新后的，componentWillUpdate、componentDidUpdate和shouldComponentUpdate一样，具有两个参数，nextProps，nextState，下一个要获取的值就在这里。</p>
-</blockquote>
+        <p>使用redux更新store中的值，引起对应组件的update，在componentWillUpdate中，使用对应的props值时，发现并没有变化，<a id="more"></a> 在mapStateToProps中，打断点，state是已经变化了的，但是componentWillUpdate函数中确实还是之前的值，在render中打断点，又是已经变化了的，百度之后，发现在render时，才会把更新后的store值，赋给this.props；componentWillUpdate中this.props的值还是更新前的，如果要获取更新后的，componentWillUpdate、componentDidUpdate和shouldComponentUpdate一样，具有两个参数，nextProps，nextState，下一个要获取的值就在这里。</p>
 
       
 
@@ -457,22 +455,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Github Pages</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">node.js</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">jsLint</a>
               </li>
              
@@ -497,6 +479,26 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Github Pages</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">node.js</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">React</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">react</a>
               </li>
              
@@ -505,7 +507,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">React</a>
+                <a href="javascript:void(0)" class="js-tag color3">日记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -517,11 +519,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日记</a>
+                <a href="javascript:void(0)" class="js-tag color5">迦南木棉</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">迦南木棉</a>
+                <a href="javascript:void(0)" class="js-tag color3">文件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">redux-thunk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">异步</a>
               </li>
             
             <div class="clearfix"></div>

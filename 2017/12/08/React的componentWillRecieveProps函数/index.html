@@ -6,22 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://kate605690919.github.io">
-  <title>React的componentWillRecieveProps函数 | Hexo</title>
+  <title>React的componentWillRecieveProps函数 | KateCateCake&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="上一次我们谈了一下componentWillUpdate函数的注意事项，这次我们谈一谈componentWillRecieveProps这个函数。">
 <meta name="keywords" content="react.js,JavaScript,redux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React的componentWillRecieveProps函数">
 <meta property="og:url" content="http://kate605690919.github.io/2017/12/08/React的componentWillRecieveProps函数/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="KateCateCake&#39;s Blog">
 <meta property="og:description" content="上一次我们谈了一下componentWillUpdate函数的注意事项，这次我们谈一谈componentWillRecieveProps这个函数。">
 <meta property="og:locale" content="Chinese, English">
-<meta property="og:updated_time" content="2017-12-08T13:11:04.678Z">
+<meta property="og:updated_time" content="2017-12-23T11:52:47.049Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React的componentWillRecieveProps函数">
 <meta name="twitter:description" content="上一次我们谈了一下componentWillUpdate函数的注意事项，这次我们谈一谈componentWillRecieveProps这个函数。">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="KateCateCake&#39;s Blog" type="application/atom+xml">
   
   
     <link rel="icon" href="https://avatars0.githubusercontent.com/u/23615318?s=400&u=2bf74675f2c1de255a4b513a6aa596f20ce6fd9d&v=4">
@@ -171,9 +171,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>上一次我们谈了一下componentWillUpdate函数的注意事项，这次我们谈一谈componentWillRecieveProps这个函数。</p>
-</blockquote>
+        <p>上一次我们谈了一下componentWillUpdate函数的注意事项，这次我们谈一谈componentWillRecieveProps这个函数。</p>
 <a id="more"></a>
 <p>作为一个初学者，我在看程墨大大的书时，很自然的忽略了componentWillRecieveProps这个函数，在写水网这个项目时，遇到一个需求，要在一个方法跑完之后在调用另外一个方法，这两个方法获取到的数据分别显示在两个不同的同级组件中，很自然的用了redux。为了不进行大的改动（私下里认为异步的action好麻烦，不知道是不是因为我用了最原始的，懒得封装。。。原来的写法就是在各自组件内部调用后台方法，回调里setState来更改status和data），在第一个回调中dispatch一个action，改变状态树上的某一个值，这个值在第二个组件中的mapStatetoProps里获取到，就可以引发第二个组件的update。</p>
 <p>按照之前的做法，把第二个组件的对应方法放到componentWillUpdate中，但是因为这个方法的回调中会setState来更新组件内容，所以还会进入到componentWillUpdate中，如果不加以控制，就会变成死循环。所以解决思路就参考了月影的只执行一次的函数。第二个组件状态树上关联的值初始状态设置为false，dispatch的action对应的reducer的case语句里，将其设置为true，componentWillUpdate里判断一下这个值（注意是nextProps属性），为true时，才会调用后台方法，然后在第二个组件对应方法的回调中设置为false，保证setState不会再调用一次后台方法。</p>
@@ -461,22 +459,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Github Pages</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">node.js</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">jsLint</a>
               </li>
              
@@ -501,6 +483,26 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Github Pages</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">node.js</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">React</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">react</a>
               </li>
              
@@ -509,7 +511,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">React</a>
+                <a href="javascript:void(0)" class="js-tag color3">日记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,11 +523,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">日记</a>
+                <a href="javascript:void(0)" class="js-tag color5">迦南木棉</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">迦南木棉</a>
+                <a href="javascript:void(0)" class="js-tag color3">文件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">redux-thunk</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">异步</a>
               </li>
             
             <div class="clearfix"></div>

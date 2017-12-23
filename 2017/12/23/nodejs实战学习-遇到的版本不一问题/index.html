@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://kate605690919.github.io">
-  <title>Tag: JavaScript | KateCateCake&#39;s Blog</title>
+  <title>nodejs实战学习-遇到的版本不一问题 | KateCateCake&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前端攻城狮">
-<meta name="keywords" content="前端,js,jQuery,程序媛,React,WebGL">
-<meta property="og:type" content="website">
-<meta property="og:title" content="KateCateCake&#39;s Blog">
-<meta property="og:url" content="http://kate605690919.github.io/tags/JavaScript/index.html">
+  <meta name="description" content="在学习nodejs实战构建聊天室应用的时候，照着书上的代码敲的，运行时报了这样的错：mime.lookup is not a function。想想可能是mime的版本和书上不一样导致的，就去百度了一下， 发现新版本中lookup函数改成了getType，替换后就可以了  第三章，做pub/sub的时候，因为触发不了c">
+<meta name="keywords" content="node.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nodejs实战学习-遇到的版本不一问题">
+<meta property="og:url" content="http://kate605690919.github.io/2017/12/23/nodejs实战学习-遇到的版本不一问题/index.html">
 <meta property="og:site_name" content="KateCateCake&#39;s Blog">
-<meta property="og:description" content="前端攻城狮">
+<meta property="og:description" content="在学习nodejs实战构建聊天室应用的时候，照着书上的代码敲的，运行时报了这样的错：mime.lookup is not a function。想想可能是mime的版本和书上不一样导致的，就去百度了一下， 发现新版本中lookup函数改成了getType，替换后就可以了  第三章，做pub/sub的时候，因为触发不了connect的事件，导致程序无法正常运行，百度了很久，发现，取消了这个事件，c">
 <meta property="og:locale" content="Chinese, English">
+<meta property="og:updated_time" content="2017-12-23T11:54:46.843Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KateCateCake&#39;s Blog">
-<meta name="twitter:description" content="前端攻城狮">
+<meta name="twitter:title" content="nodejs实战学习-遇到的版本不一问题">
+<meta name="twitter:description" content="在学习nodejs实战构建聊天室应用的时候，照着书上的代码敲的，运行时报了这样的错：mime.lookup is not a function。想想可能是mime的版本和书上不一样导致的，就去百度了一下， 发现新版本中lookup函数改成了getType，替换后就可以了  第三章，做pub/sub的时候，因为触发不了connect的事件，导致程序无法正常运行，百度了很久，发现，取消了这个事件，c">
   
     <link rel="alternative" href="/atom.xml" title="KateCateCake&#39;s Blog" type="application/atom+xml">
   
@@ -150,244 +151,218 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-nodejs实战学习-遇到的版本不一问题" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      nodejs实战学习-遇到的版本不一问题
+    </h1>
+  
+
+        
+        <a href="/2017/12/23/nodejs实战学习-遇到的版本不一问题/" class="archive-article-date">
+  	<time datetime="2017-12-23T11:45:10.080Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-23</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p>在学习nodejs实战构建聊天室应用的时候，照着书上的代码敲的，运行时报了这样的错：mime.lookup is not a function。<br>想想可能是mime的版本和书上不一样导致的，就去百度了一下， 发现新版本中lookup函数改成了getType，替换后就可以了</p>
+</li>
+<li><p>第三章，做pub/sub的时候，因为触发不了connect的事件，导致程序无法正常运行，百度了很久，发现，取消了这个事件，createServer之后会自动监听这个事件，所以代码做如下修改：</p>
+<a id="more"></a>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> server = net.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">client</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> id = client.remoteAddress + <span class="string">':'</span> + client.remotePort;</span><br><span class="line">    channel.emit(<span class="string">'join'</span>, id, client);</span><br><span class="line">    client.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">        data = data.toString();</span><br><span class="line">        channel.emit(<span class="string">'broadcast'</span>, id, data);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">server.listen(<span class="number">8888</span>);</span><br></pre></td></tr></table></figure>
+<p>直接触发join事件即可。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://i1.bvimg.com/621499/fa7b85e1816c091d.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/23/react生成的表单不能键入问题的解决/" class="archive-article-date">
-  	<time datetime="2017-12-23T11:46:39.516Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/23/react生成的表单不能键入问题的解决/">react生成的表单不能键入问题的解决</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">react.js</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">node.js</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://kate605690919.github.io/2017/12/23/nodejs实战学习-遇到的版本不一问题/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/08/React的componentWillRecieveProps函数/" class="archive-article-date">
-  	<time datetime="2017-12-08T12:37:01.377Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-08</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2017/12/23/使用redux-thunk时，更新state组件没有重新渲染（render）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          使用redux-thunk时，更新state组件没有重新渲染（render）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/21/迦南木棉/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第一章 公主</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/08/React的componentWillRecieveProps函数/">React的componentWillRecieveProps函数</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">react.js</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/08/React的componentWillUpdate获取不到更新的props值（redux）/" class="archive-article-date">
-  	<time datetime="2017-12-08T12:19:50.889Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-08</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/08/React的componentWillUpdate获取不到更新的props值（redux）/">使用redux时，componentWillUpdate获取不到更新的props值</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">react.js</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/02/thinkjs学习(前后端交互篇)-this.assign传递数据和ajax调用后台接口/" class="archive-article-date">
-  	<time datetime="2017-12-02T06:23:26.711Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/02/thinkjs学习(前后端交互篇)-this.assign传递数据和ajax调用后台接口/">thinkjs学习(前后端交互篇)-this.assign传递数据和ajax调用后台接口</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">think.js</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">交互</a>
-        		</li>
-      		
-		</ul>
-	</div>
+  <!--  -->
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/02/react报错汇总(持续更新中)/" class="archive-article-date">
-  	<time datetime="2017-12-02T06:14:01.917Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-02</time>
-</a>
-        </div>
-    	 
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://kate605690919.github.io/2017/12/23/nodejs实战学习-遇到的版本不一问题/",
+  owner: 'Kate605690919',
+  repo: 'Kate605690919.github.io',
+  oauth: {
+    client_id: '0e99b921c34c81e18cc0',
+    client_secret: 'f90f28a3883f7d8673bc238cabc766e55cf2d4ea',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/02/react报错汇总(持续更新中)/">React报错汇总(持续更新中...)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -410,9 +385,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
